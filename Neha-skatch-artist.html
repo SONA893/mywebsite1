@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neha Artist | Sketch & Fine Art</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --color-bg-light: #ffffff;
+    --color-bg-dark: #111827;
+    --color-text-light: #374151;
+    --color-text-muted: #6b7280;
+    --color-text-muted-light: #9ca3af;
+    --color-accent-start: #6d28d9;
+    --color-accent-end: #f43f5e;
+    --color-card-bg: rgba(255 255 255 / 0.7);
+    --color-card-bg-dark: rgba(17 24 39 / 0.6);
+    --color-btn-bg: #111827;
+    --color-btn-bg-hover: #4338ca;
+    --color-btn-text: #ffffff;
+    --color-nav-text: #374151;
+    --color-nav-text-hover: #6d28d9;
+    --border-radius-md: 0.75rem;
+    --shadow-light: 0 8px 24px rgba(109,40,217,0.08);
+    --shadow-dark: 0 8px 24px rgba(0,0,0,0.4);
+    --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --scroll-padding-top: 80px;
+  }
+
+  /* Dark mode custom property toggling */
+  .dark {
+    --color-bg: var(--color-bg-dark);
+    --color-text: #d1d5db;
+    --color-text-muted: #9ca3af;
+    --color-card-bg: var(--color-card-bg-dark);
+    --color-btn-bg: var(--color-btn-bg-hover);
+    --color-btn-text: #e0e7ff;
+    --color-nav-text: #d1d5db;
+    --color-nav-text-hover: #a78bfa;
+    --shadow: var(--shadow-dark);
+  }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    background: var(--color-bg-light);
+    color: var(--color-text-light);
+    font-size: 18px;
+    line-height: 1.6;
+    scroll-padding-top: var(--scroll-padding-top);
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+  }
+  body.dark {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    outline-offset: 2px;
+  }
+  a:focus-visible {
+    outline: 2px solid var(--color-accent-start);
+    outline-offset: 4px;
+  }
+  /* Smooth scroll for anchor navigation */
+  html {
+    scroll-behavior: smooth;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--color-bg-light);
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 6px rgba(0 0 0 /0.1);
+    transition: background-color var(--transition-smooth);
+  }
+  body.dark header {
+    background: var(--color-bg-dark);
+    border-color: rgba(209 213 219 / 0.15);
+    box-shadow: none;
+  }
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.75rem;
+    color: var(--color-text-light);
+    letter-spacing: 0.06em;
+    user-select: none;
+    transition: color var(--transition-fast);
+  }
+  body.dark .logo {
+    color: var(--color-text);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+  }
+  .nav-links a {
+    position: relative;
+    color: var(--color-nav-text);
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 0;
+    transition: color var(--transition-fast);
+  }
+  body.dark .nav-links a {
+    color: var(--color-text);
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-end));
+    border-radius: var(--border-radius-md);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover,
+  .nav-links a:focus-visible {
+    color: var(--color-nav-text-hover);
+  }
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after {
+    width: 100%;
+  }
+  .theme-toggle-btn {
+    margin-left: 2rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-nav-text);
+    font-size: 1.3rem;
+    transition: color var(--transition-fast);
+  }
+  body.dark .theme-toggle-btn {
+    color: var(--color-text);
+  }
+  .theme-toggle-btn:focus-visible {
+    outline: 2px solid var(--color-accent-start);
+    outline-offset: 3px;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem 8rem 2rem;
+  }
+  .hero {
+    position: relative;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 6rem;
+    padding: 0 1rem;
+    z-index: 1;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 260px;
+    width: 260px;
+    background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+    border-radius: 50%;
+    filter: blur(80px);
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+    z-index: -1;
+    transition: background 0.4s ease;
+  }
+  body.dark .hero::before {
+    background: linear-gradient(135deg, #9333ea, #db2777);
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    line-height: 1.1;
+    font-size: 4.25rem;
+    color: var(--color-text-light);
+    margin-bottom: 1rem;
+    transition: color var(--transition-fast);
+  }
+  body.dark .hero h1 {
+    color: var(--color-text);
+  }
+  .hero p {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: color var(--transition-fast);
+  }
+  body.dark .hero p {
+    color: var(--color-text-muted);
+  }
+  .btn-primary {
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    padding: 1.15rem 3rem;
+    background-image: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-end));
+    border: none;
+    color: var(--color-btn-text);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(244, 63, 94, 0.4);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    user-select: none;
+    text-align: center;
+    line-height: 1;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    box-shadow: 0 18px 35px rgba(244, 63, 94, 0.6);
+    transform: translateY(-3px) scale(1.06);
+    outline: none;
+  }
+
+  /* Features grid with glassmorphism cards */
+  .features-grid {
+    display: grid;
+    gap: 2.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .card {
+    position: relative;
+    background: var(--color-card-bg);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-radius: var(--border-radius-md);
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+    cursor: default;
+    outline-offset: 3px;
+  }
+  body.dark .card {
+    background: var(--color-card-bg-dark);
+    box-shadow: var(--shadow-dark);
+  }
+  .card:hover,
+  .card:focus-within {
+    box-shadow: 0 20px 38px rgba(109,40,217,0.25);
+    transform: translateY(-8px) scale(1.04);
+    outline: none;
+  }
+  .card svg {
+    width: 52px;
+    height: 52px;
+    stroke: var(--color-accent-start);
+    stroke-width: 1.8;
+    fill: none;
+    transition: stroke 0.3s;
+  }
+  .card:hover svg,
+  .card:focus-within svg {
+    stroke: var(--color-accent-end);
+  }
+  .card h3 {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-text-light);
+    transition: color 0.3s;
+  }
+  body.dark .card h3 {
+    color: var(--color-text);
+  }
+  .card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    flex-grow: 1;
+    transition: color 0.3s;
+  }
+  body.dark .card p {
+    color: var(--color-text-muted-light);
+  }
+
+  section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+  section#about p,
+  section#contact p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  /* Contact form styling */
+  form {
+    max-width: 480px;
+    margin: 2rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+  label {
+    font-weight: 600;
+    color: var(--color-text-light);
+    font-size: 1rem;
+  }
+  body.dark label {
+    color: var(--color-text);
+  }
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    border-radius: var(--border-radius-md);
+    border: 1.5px solid #d1d5db;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+    resize: vertical;
+    font-family: inherit;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    border-color: var(--color-accent-start);
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 8px var(--color-accent-start);
+    color: #111827;
+  }
+  body.dark input[type="text"],
+  body.dark input[type="email"],
+  body.dark textarea {
+    background-color: #222933;
+    color: var(--color-text);
+    border-color: #374151;
+  }
+  body.dark input[type="text"]:focus,
+  body.dark input[type="email"]:focus,
+  body.dark textarea:focus {
+    background-color: #1e2431;
+    border-color: var(--color-accent-end);
+    box-shadow: 0 0 10px var(--color-accent-end);
+    color: #fafafa;
+  }
+
+  button[type="submit"] {
+    max-width: 180px;
+    justify-self: center;
+  }
+
+  footer {
+    margin-top: 6rem;
+    padding: 2rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    user-select: none;
+  }
+  footer a {
+    color: var(--color-nav-text);
+    font-weight: 600;
+    transition: color var(--transition-fast);
+  }
+  footer a:hover,
+  footer a:focus-visible {
+    color: var(--color-accent-end);
+    outline: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 680px) {
+    nav {
+      padding: 1rem 1rem;
+    }
+    main {
+      padding: 4rem 1rem 6rem 1rem;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+    }
+    .btn-primary {
+      font-size: 1.1rem;
+      padding: 0.95rem 2.4rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav role="navigation" aria-label="Primary Navigation">
+    <div class="logo" aria-label="Neha Artist Home">Neha Artist</div>
+    <div class="nav-links">
+      <a href="#about" tabindex="0">About</a>
+      <a href="#portfolio" tabindex="0">Portfolio</a>
+      <a href="#contact" tabindex="0">Contact</a>
+    </div>
+    <button class="theme-toggle-btn" aria-label="Toggle Dark Mode" title="Toggle Dark Mode" id="theme-toggle" type="button">
+      🌙
+    </button>
+  </nav>
+<!-- Optional: Add a visually hidden "Skip to main content" link for accessibility -->
+<a href="#hero-title" class="visually-hidden-focusable" style="position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:100;background:#fff;color:#111827;padding:8px 16px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.08);transition:left 0.2s;" onfocus="this.style.left='12px'" onblur="this.style.left='-999px'">Skip to main content</a>
+</header>
+<main>
+  <section class="hero" role="region" aria-labelledby="hero-title">
+    <h1 id="hero-title">Sketching Life With Artistry</h1>
+    <p>Discover the enchanting world of Neha's sketches - where passion meets creativity in every line.</p>
+    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});" aria-label="Get in touch with Neha">Get In Touch</button>
+  </section>
+  <section id="about" role="region" aria-labelledby="about-title">
+    <h2 id="about-title">About Neha</h2>
+    <p>
+      Neha is a passionate artist specializing in the beauty of sketching and fine art. With years of experience, her work captures emotions and movement in delicate pencil strokes and expressive lines.
+    </p>
+  </section>
+  <section id="portfolio" role="region" aria-labelledby="portfolio-title">
+    <h2 id="portfolio-title">Portfolio Highlights</h2>
+    <div class="features-grid">
+      <article class="card" tabindex="0" aria-label="Portrait Sketches">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="9" r="4" />
+          <path d="M5.5 21a6.5 6.5 0 0113 0"/>
+        </svg>
+        <h3>Portrait Sketches</h3>
+        <p>Life-like portrait sketches that capture the essence and personality of each subject with precision and softness.</p>
+      </article>
+      <article class="card" tabindex="0" aria-label="Nature Inspired Sketches">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M5 13l4 4L19 7" />
+        </svg>
+        <h3>Nature Inspired</h3>
+        <p>Sketches inspired by the beauty of nature - leaves, flowers, and landscapes brought to life on paper.</p>
+      </article>
+      <article class="card" tabindex="0" aria-label="Custom Commissions">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <rect x="3" y="7" width="18" height="13" rx="2" ry="2" />
+          <path d="M16 3h-4a1 1 0 00-1 1v2h6V4a1 1 0 00-1-1z"/>
+        </svg>
+        <h3>Custom Commissions</h3>
+        <p>Bring your ideas to life with personalized sketches created just for you. Perfect for gifts, decor, and special projects.</p>
+      </article>
+    </div>
+  </section>
+  <section id="contact" role="region" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contact</h2>
+    <p>Interested in working together or commissioning a sketch? Drop a message below!</p>
+    <form aria-label="Contact form" novalidate>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" autocomplete="name" required />
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required />
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+      <button type="submit" class="btn-primary" aria-label="Send message to Neha">Send Message</button>
+    </form>
+  </section>
+</main>
+<footer>
+  &copy; 2025 Neha Artist. All rights reserved. &nbsp;&bull;&nbsp;
+  <a href="https://www.instagram.com/artist_neha.s/" target="_blank" rel="noopener noreferrer" aria-label="Visit Neha's Instagram">Instagram</a>
+</footer>
+<script>
+  // Theme toggle button functionality
+  const btn = document.getElementById('theme-toggle');
+  const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function setDarkMode(isDark) {
+    if (isDark) {
+      document.body.classList.add('dark');
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label', 'Toggle Light Mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label', 'Toggle Dark Mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  btn.addEventListener('click', () => {
+    const darkModeActive = document.body.classList.contains('dark');
+    setDarkMode(!darkModeActive);
+  });
+
+  // Initialization on page load
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setDarkMode(savedTheme === 'dark');
+    } else {
+      setDarkMode(prefersDarkScheme.matches);
+    }
+  })();
+
+  // Form submission handler
+  const form = document.querySelector('form[aria-label="Contact form"]');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    // Basic validation
+    if (!form.name.value.trim() || !form.email.value.trim() || !form.message.value.trim()) {
+      alert('Please fill out all fields.');
+      return;
+    }
+    alert('Thank you for your message! Neha will get back to you soon.');
+    form.reset();
+  });
+</script>
+</body>
+</html>
+
